@@ -30,6 +30,13 @@ body {
   min-height: 100vh;
 }
 
+/* Garantir que o root do React preencha a largura disponível
+   para que páginas com containers em 100% (ex: Login) ocupem
+   toda a tela e mostrem seu background corretamente. */
+#root {
+  width: 100%;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

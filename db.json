@@ -1,0 +1,91 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "email": "admin@fggf.com",
+            "senha": "123456",
+            "nome": "Admin",
+            "tipo": "admin"
+        },
+        {
+            "id": 2,
+            "email": "cliente@empresa.com",
+            "senha": "123456",
+            "nome": "Marcos V",
+            "tipo": "cliente",
+            "empresaId": 1
+        }
+    ],
+    "empresas": [
+        {
+            "id": 1,
+            "nome": "Empresa 1",
+            "ativo": true
+        },
+        {
+            "id": 2,
+            "nome": "Empresa 2",
+            "ativo": true
+        }
+    ],
+    "relatorios": [
+        {
+            "id": 1,
+            "empresaId": 1,
+            "titulo": "DRE - Dezembro/2025",
+            "tipo": "dre",
+            "data": "2025-12-31",
+            "valores": {
+                "receitas": 150000,
+                "custos": 80000,
+                "despesas": 30000,
+                "lucro": 40000
+            }
+        },
+        {
+            "id": 2,
+            "empresaId": 1,
+            "titulo": "DFC - Dezembro/2025",
+            "tipo": "dfc",
+            "data": "2025-12-31",
+            "valores": {
+                "operacional": 50000,
+                "investimento": -10000,
+                "financiamento": 20000,
+                "saldoFinal": 60000
+            }
+        },
+        {
+            "id": 3,
+            "empresaId": 1,
+            "titulo": "DRE - Novembro/2025",
+            "tipo": "dre",
+            "data": "2025-11-30",
+            "valores": {
+                "receitas": 140000,
+                "custos": 75000,
+                "despesas": 28000,
+                "lucro": 37000
+            }
+        },
+        {
+            "id": 4,
+            "empresaId": 2,
+            "titulo": "DRE - Dezembro/2025",
+            "tipo": "dre",
+            "data": "2025-12-31",
+            "valores": {
+                "receitas": 80000,
+                "custos": 45000,
+                "despesas": 15000,
+                "lucro": 20000
+            }
+        }
+    ],
+    "graficos": {
+        "vendasMensais": {
+            "meses": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+            "valores": [10000, 12000, 15000, 13000, 18000, 20000]
+        }
+    }
+}
