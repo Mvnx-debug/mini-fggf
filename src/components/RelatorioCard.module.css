@@ -1,0 +1,45 @@
+.card{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.titulo {
+    margin: 0 0 8px 0;
+    color: #1976d2;
+    font-size: 18px;
+}
+
+.data{
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tipo{
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.valor{
+    font-weight: bold;
+    color: #2e7d32;
+}
