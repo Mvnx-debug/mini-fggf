@@ -1,6 +1,7 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import api from '../services/api';
+
 
 //types
 interface Usuario {
@@ -35,12 +36,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     //Recuperar usuario do localStorage ao iniciar
 
-    useState(() => {
-        const storedUser = localStorage.getItem('user')
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    });
+    }, []); // ← Array vazio = roda UMA vez
 
     async function login(email: string, senha: string) {
         setLoading(true);
