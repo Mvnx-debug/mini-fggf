@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';  
+import Login from './pages/Login/Login';
+import Dashboard from './pages/dashboard/Dashboard';  
+import ReportDetails from './pages/report-details/ReportDetails.tsx';
 
 // Componente para rotas privadas
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -24,6 +25,14 @@ function App() {
                 <Dashboard />
               </PrivateRoute>
             } 
+          />
+          <Route
+            path='/relatorio/:id'
+            element={
+              <PrivateRoute>
+                <ReportDetails />
+              </PrivateRoute>
+            }
           />
           <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>

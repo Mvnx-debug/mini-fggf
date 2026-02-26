@@ -1,0 +1,65 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.topBar{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.primaryButton,
+.secondaryButton {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.primaryButton {
+  background: #1976d2;
+  color: #fff;
+}
+
+.secondaryButton {
+  background: #eceff1;
+  color: #263238;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.title {
+  margin: 0;
+  color: #1976d2;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #616161;
+}
+
+.sectionTitle {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 20px;
+  color: #263238;
+}
+
+.chartArea {
+  width: 100%;
+  height: 340px;
+}
+
+.erro {
+  background: #ffebee;
+  color: #c62828;
+  padding: 14px;
+  border-radius: 6px;
+}
