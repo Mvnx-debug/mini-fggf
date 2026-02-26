@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { RelatorioCard } from '../components/RelatorioCard';
-import { Loading } from '../components/Loading';
-import api from '../services/api';
-import type { Relatorio } from '../types';
+import { useAuth } from '../../context/AuthContext';
+import { RelatorioCard } from '../../components/RelatorioCard';
+import { Loading } from '../../components/Loading';
+import api from '../../services/api';
+import type { Relatorio } from '../../types';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
