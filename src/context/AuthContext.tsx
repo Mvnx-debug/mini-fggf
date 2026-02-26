@@ -41,22 +41,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-    }, []); // ‚Üê Array vazio = roda UMA vez
+    }, []); // ? Array vazio = roda UMA vez
 
     async function login(email: string, senha: string) {
         setLoading(true);
         try {
-            // 1. Busca TODOS os usu√°rios (sem filtro)
+            // 1. Busca TODOS os usu·rios (sem filtro)
             const response = await api.get('/usuarios');
 
-            console.log('Todos usu√°rios do banco:', response.data);
+            console.log('Todos usu·rios do banco:', response.data);
 
             // 2. Filtra manualmente no JavaScript
             const usuario = response.data.find(
                 (u: any) => u.email === email && u.senha === senha
             );
 
-            console.log('Usu√°rio encontrado:', usuario);
+            console.log('Usu·rio encontrado:', usuario);
 
             if (usuario) {
                 const token = `fake-token-${usuario.id}`;
@@ -65,10 +65,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUser(usuario);
                 return { success: true };
             } else {
-                return { success: false, error: 'Email ou senha inv√°lidos' };
+                return { success: false, error: 'Email ou senha inv·lidos' };
             }
         } catch (error) {
-            console.error('Erro na requisi√ß√£o:', error);
+            console.error('Erro na requisiÁ„o:', error);
             return { success: false, error: 'Erro ao fazer login' };
         } finally {
             setLoading(false);
