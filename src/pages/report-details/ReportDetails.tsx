@@ -1,22 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from 'recharts';
+import ChartBarDefault from '@/components/chart-bar-default';
 import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/Loading';
 import api from '../../services/api';
 import type { Relatorio } from '../../types';
 import styles from './ReportDetails.module.css';
+import { ThemeToggle } from '@/components/ThemeToggle'
 
-interface ChartDatum {
+type ChartDatum = {
   categoria: string;
   valor: number;
 }
@@ -25,12 +17,8 @@ function formatarData(data: string) {
   return new Date(data).toLocaleDateString('pt-BR');
 }
 
-function formatarValor(valor: number) {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(valor);
-}
+
+
 
 export default function ReportDetails() {
   const { id } = useParams<{ id: string }>();
@@ -41,12 +29,13 @@ export default function ReportDetails() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
 
+
   useEffect(() => {
     let ativo = true;
 
     async function buscarRelatorioPorId() {
       if (!id) {
-        setErro('ID do relatório não fornecido');
+        setErro('ID do relatorio nao fornecido');
         setCarregando(false);
         return;
       }
@@ -61,7 +50,7 @@ export default function ReportDetails() {
           user.empresaId &&
           response.data.empresaId !== user.empresaId
         ) {
-          setErro('Você não tem permissão para acessar este relatório');
+          setErro('Voce nao tem permissao para acessar este relatorio');
           setRelatorio(null);
           return;
         }
@@ -70,7 +59,7 @@ export default function ReportDetails() {
         setErro('');
       } catch {
         if (ativo) {
-          setErro('Erro ao buscar relatório');
+          setErro('Erro ao buscar relatorio');
           setRelatorio(null);
         }
       } finally {
@@ -84,13 +73,15 @@ export default function ReportDetails() {
     };
   }, [id, user]);
 
-  const dadosGrafico = useMemo<ChartDatum[]>(() => {
+  const dadosGrafico: ChartDatum[] = useMemo(() => {
     if (!relatorio) return [];
+
     return Object.entries(relatorio.valores).map(([categoria, valor]) => ({
       categoria,
-      valor,
-    }));
-  }, [relatorio]);
+      valor: Number(valor),
+    }))
+  }, [relatorio])
+
 
   if (carregando) {
     return (
@@ -117,7 +108,7 @@ export default function ReportDetails() {
         <button className={styles.secondaryButton} onClick={() => navigate('/dashboard')}>
           Voltar
         </button>
-        <div className={styles.erro}>Relatório não encontrado</div>
+        <div className={styles.erro}>Relatorio nao encontrado</div>
       </div>
     );
   }
@@ -128,9 +119,13 @@ export default function ReportDetails() {
         <button className={styles.secondaryButton} onClick={() => navigate('/dashboard')}>
           Voltar
         </button>
-        <button className={styles.primaryButton} onClick={() => window.print()}>
-          Exportar PDF
-        </button>
+
+        <div style={{ display: 'flex', gap: 8 }}>
+          <ThemeToggle />
+          <button className={styles.primaryButton} onClick={() => window.print()}>
+            Exportar PDF
+          </button>
+        </div>
       </div>
 
       <section className={styles.card}>
@@ -141,18 +136,9 @@ export default function ReportDetails() {
       </section>
 
       <section className={styles.card}>
-        <h2 className={styles.sectionTitle}>Gráfico dos valores</h2>
+        <h2 className={styles.sectionTitle}>Grafico dos valores</h2>
         <div className={styles.chartArea}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={dadosGrafico}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="categoria" />
-              <YAxis />
-              <Tooltip formatter={(value) => formatarValor(value as number)} />
-              <Legend />
-              <Bar dataKey="valor" fill="#1976d2" name="Valor" />
-            </BarChart>
-          </ResponsiveContainer>
+          <ChartBarDefault data={dadosGrafico} />
         </div>
       </section>
     </div>

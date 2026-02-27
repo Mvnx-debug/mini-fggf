@@ -1,55 +1,59 @@
 .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
 }
-.topBar{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .primaryButton,
 .secondaryButton {
-    border: none;
-    border-radius: 6px;
-    padding: 10px 16px;
-    cursor: pointer;
-    font-size: 14px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
 }
+
 .primaryButton {
-  background: #1976d2;
-  color: #fff;
+  background: hsl(var(--chart-1));
+  color: hsl(var(--primary-foreground));
 }
 
 .secondaryButton {
-  background: #eceff1;
-  color: #263238;
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
 }
 
 .card {
-  background: #fff;
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   padding: 18px;
   margin-bottom: 18px;
 }
 
 .title {
   margin: 0;
-  color: #1976d2;
+  color: hsl(var(--foreground));
 }
 
 .subtitle {
   margin-top: 8px;
-  color: #616161;
+  color: hsl(var(--muted-foreground));
 }
 
 .sectionTitle {
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 20px;
-  color: #263238;
+  color: hsl(var(--foreground));
 }
 
 .chartArea {
@@ -58,8 +62,8 @@
 }
 
 .erro {
-  background: #ffebee;
-  color: #c62828;
+  background: hsl(var(--destructive) / 0.15);
+  color: hsl(var(--destructive));
   padding: 14px;
   border-radius: 6px;
 }

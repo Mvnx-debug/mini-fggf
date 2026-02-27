@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 import { RelatorioCard } from '../../components/RelatorioCard';
 import { Loading } from '../../components/Loading';
@@ -7,62 +8,39 @@ import type { Relatorio } from '../../types';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
-  console.log('🔥 COMPONENTE RENDERIZOU');
-  
   const { user, logout } = useAuth();
   const [relatorios, setRelatorios] = useState<Relatorio[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
 
-  // LOG DO USUÁRIO
-  console.log('👤 User:', user);
-
   useEffect(() => {
-    console.log('🎯 useEffect RODOU!');
-    console.log('📦 User dentro do useEffect:', user);
-
-    let ativo = true; // Flag para evitar atualizar se desmontar
+    let ativo = true;
 
     async function buscarRelatorios() {
-      console.log('🔍 FUNÇÃO buscarRelatorios EXECUTOU');
-      
       if (!user) {
-        console.log('❌ user é null, não vou buscar');
         setCarregando(false);
         return;
       }
 
       try {
-        console.log('⏳ setCarregando(true)');
         setCarregando(true);
-        
+
         let url = '/relatorios';
-        console.log('📌 user.tipo:', user.tipo);
-        
         if (user.tipo === 'cliente' && user.empresaId) {
           url = `/relatorios?empresaId=${user.empresaId}`;
-          console.log('🔗 URL cliente:', url);
-        } else if (user.tipo === 'admin') {
-          console.log('🔗 URL admin:', url);
         }
-        
-        console.log('🚀 Fazendo requisição para:', url);
+
         const response = await api.get(url);
-        console.log('✅ Resposta recebida:', response.data);
-        
         if (ativo) {
-          console.log('📊 Setando relatórios com:', response.data.length, 'itens');
           setRelatorios(response.data);
           setErro('');
         }
-      } catch (error) {
-        console.error('❌ Erro na requisição:', error);
+      } catch {
         if (ativo) {
-          setErro('Não foi possível carregar os relatórios');
+          setErro('Nao foi possivel carregar os relatorios');
         }
       } finally {
         if (ativo) {
-          console.log('🏁 setCarregando(false)');
           setCarregando(false);
         }
       }
@@ -71,15 +49,11 @@ export default function Dashboard() {
     buscarRelatorios();
 
     return () => {
-      console.log('🧹 LIMPEZA: desmontando componente');
       ativo = false;
     };
-  }, [user]); // ← Dependência
-
-  console.log('📋 Estado atual - carregando:', carregando, 'relatorios:', relatorios.length, 'erro:', erro);
+  }, [user]);
 
   if (carregando) {
-    console.log('⏳ Renderizando LOADING');
     return (
       <div className={styles.container}>
         <Loading />
@@ -88,7 +62,6 @@ export default function Dashboard() {
   }
 
   if (erro) {
-    console.log('❌ Renderizando ERRO:', erro);
     return (
       <div className={styles.container}>
         <div className={styles.erro}>{erro}</div>
@@ -97,28 +70,27 @@ export default function Dashboard() {
     );
   }
 
-  console.log('✅ Renderizando DASHBOARD com', relatorios.length, 'relatórios');
-
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div>
-          <h1>Olá, {user?.nome}!</h1>
+          <h1>Ola, {user?.nome}!</h1>
           <p className={styles.subtitle}>
-            {user?.tipo === 'admin' 
-              ? 'Gerencie todos os relatórios' 
-              : 'Seus relatórios financeiros'}
+            {user?.tipo === 'admin' ? 'Gerencie todos os relatorios' : 'Seus relatorios financeiros'}
           </p>
         </div>
-        <button onClick={logout} className={styles.logoutButton}>
-          Sair
-        </button>
+        <div className={styles.headerActions}>
+          <ThemeToggle />
+          <button onClick={logout} className={styles.logoutButton}>
+            Sair
+          </button>
+        </div>
       </header>
 
       {relatorios.length === 0 ? (
         <div className={styles.vazio}>
-          <p>Nenhum relatório encontrado</p>
-          <p>Usuário: {user?.email} | Tipo: {user?.tipo} | EmpresaId: {user?.empresaId}</p>
+          <p>Nenhum relatorio encontrado</p>
+          <p>Usuario: {user?.email} | Tipo: {user?.tipo} | EmpresaId: {user?.empresaId}</p>
         </div>
       ) : (
         <>
@@ -129,20 +101,16 @@ export default function Dashboard() {
             </div>
             <div className={styles.statCard}>
               <span className={styles.statLabel}>DRE</span>
-              <span className={styles.statValue}>
-                {relatorios.filter(r => r.tipo === 'dre').length}
-              </span>
+              <span className={styles.statValue}>{relatorios.filter((r) => r.tipo === 'dre').length}</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statLabel}>DFC</span>
-              <span className={styles.statValue}>
-                {relatorios.filter(r => r.tipo === 'dfc').length}
-              </span>
+              <span className={styles.statValue}>{relatorios.filter((r) => r.tipo === 'dfc').length}</span>
             </div>
           </div>
 
           <div className={styles.grid}>
-            {relatorios.map(relatorio => (
+            {relatorios.map((relatorio) => (
               <RelatorioCard key={relatorio.id} relatorio={relatorio} />
             ))}
           </div>
