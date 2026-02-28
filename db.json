@@ -1,91 +1,539 @@
 {
-    "usuarios": [
-        {
-            "id": 1,
-            "email": "admin@fggf.com",
-            "senha": "123456",
-            "nome": "Admin",
-            "tipo": "admin"
-        },
-        {
-            "id": 2,
-            "email": "cliente@empresa.com",
-            "senha": "123456",
-            "nome": "Marcos V",
-            "tipo": "cliente",
-            "empresaId": 1
-        }
-    ],
-    "empresas": [
-        {
-            "id": 1,
-            "nome": "Empresa 1",
-            "ativo": true
-        },
-        {
-            "id": 2,
-            "nome": "Empresa 2",
-            "ativo": true
-        }
-    ],
-    "relatorios": [
-        {
-            "id": 1,
-            "empresaId": 1,
-            "titulo": "DRE - Dezembro/2025",
-            "tipo": "dre",
-            "data": "2025-12-31",
-            "valores": {
-                "receitas": 150000,
-                "custos": 80000,
-                "despesas": 30000,
-                "lucro": 40000
-            }
-        },
-        {
-            "id": 2,
-            "empresaId": 1,
-            "titulo": "DFC - Dezembro/2025",
-            "tipo": "dfc",
-            "data": "2025-12-31",
-            "valores": {
-                "operacional": 50000,
-                "investimento": -10000,
-                "financiamento": 20000,
-                "saldoFinal": 60000
-            }
-        },
-        {
-            "id": 3,
-            "empresaId": 1,
-            "titulo": "DRE - Novembro/2025",
-            "tipo": "dre",
-            "data": "2025-11-30",
-            "valores": {
-                "receitas": 140000,
-                "custos": 75000,
-                "despesas": 28000,
-                "lucro": 37000
-            }
-        },
-        {
-            "id": 4,
-            "empresaId": 2,
-            "titulo": "DRE - Dezembro/2025",
-            "tipo": "dre",
-            "data": "2025-12-31",
-            "valores": {
-                "receitas": 80000,
-                "custos": 45000,
-                "despesas": 15000,
-                "lucro": 20000
-            }
-        }
-    ],
-    "graficos": {
-        "vendasMensais": {
-            "meses": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
-            "valores": [10000, 12000, 15000, 13000, 18000, 20000]
-        }
+  "usuarios": [
+    {
+      "id": 1,
+      "email": "admin@fggf.com",
+      "senha": "123456",
+      "nome": "Admin FGGF",
+      "tipo": "admin"
+    },
+    {
+      "id": 2,
+      "email": "cliente@empresa.com",
+      "senha": "123456",
+      "nome": "Marcos V",
+      "tipo": "cliente",
+      "empresaId": 1
+    },
+    {
+      "id": 3,
+      "email": "financeiro@orion.com",
+      "senha": "123456",
+      "nome": "Paula Orion",
+      "tipo": "cliente",
+      "empresaId": 2
     }
+  ],
+  "empresas": [
+    {
+      "id": 1,
+      "nome": "Varejo Solar Ltda",
+      "segmento": "Varejo",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "nome": "Orion Logistica SA",
+      "segmento": "Logistica",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "nome": "BlueWave Tech",
+      "segmento": "Tecnologia",
+      "ativo": true
+    }
+  ],
+  "relatorios": [
+    {
+      "id": 1,
+      "empresaId": 1,
+      "titulo": "DRE - Fechamento Jan/2026",
+      "tipo": "dre",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-27T09:15:00Z",
+      "status": "aprovado",
+      "versao": 2,
+      "insights": "Margem pressionada por aumento de frete no fim do mes.",
+      "valores": {
+        "receitaBruta": 232000,
+        "impostos": 25200,
+        "custos": 118000,
+        "despesasOperacionais": 46200,
+        "resultadoFinanceiro": -3800,
+        "lucroLiquido": 38800
+      }
+    },
+    {
+      "id": 2,
+      "empresaId": 1,
+      "titulo": "DFC - Fechamento Jan/2026",
+      "tipo": "dfc",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-27T10:00:00Z",
+      "status": "aprovado",
+      "versao": 2,
+      "insights": "Geracao operacional forte compensou saida para CAPEX.",
+      "valores": {
+        "operacional": 61200,
+        "investimento": -18000,
+        "financiamento": -9500,
+        "variacaoCaixa": 33700,
+        "saldoInicial": 118000,
+        "saldoFinal": 151700
+      }
+    },
+    {
+      "id": 3,
+      "empresaId": 1,
+      "titulo": "DRE - Parcial Fev/2026 (S1)",
+      "tipo": "dre",
+      "periodoReferencia": "2026-02-S1",
+      "data": "2026-02-19T16:45:00Z",
+      "status": "publicado",
+      "versao": 1,
+      "insights": "Ticket medio subiu com campanhas de kits premium.",
+      "valores": {
+        "receitaBruta": 125000,
+        "impostos": 13600,
+        "custos": 62800,
+        "despesasOperacionais": 24400,
+        "resultadoFinanceiro": -1200,
+        "lucroLiquido": 23000
+      }
+    },
+    {
+      "id": 4,
+      "empresaId": 1,
+      "titulo": "DFC - Parcial Fev/2026 (S1)",
+      "tipo": "dfc",
+      "periodoReferencia": "2026-02-S1",
+      "data": "2026-02-19T17:10:00Z",
+      "status": "publicado",
+      "versao": 1,
+      "insights": "Ciclo de recebimento estabilizado em 32 dias.",
+      "valores": {
+        "operacional": 29600,
+        "investimento": -7200,
+        "financiamento": -3500,
+        "variacaoCaixa": 18900,
+        "saldoInicial": 151700,
+        "saldoFinal": 170600
+      }
+    },
+    {
+      "id": 5,
+      "empresaId": 1,
+      "titulo": "DRE - Fechamento Dez/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-31T11:20:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Mes sazonalmente forte no varejo, com ganho de margem.",
+      "valores": {
+        "receitaBruta": 248000,
+        "impostos": 26900,
+        "custos": 123500,
+        "despesasOperacionais": 47400,
+        "resultadoFinanceiro": -4200,
+        "lucroLiquido": 46000
+      }
+    },
+    {
+      "id": 6,
+      "empresaId": 1,
+      "titulo": "DFC - Fechamento Dez/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-31T12:05:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Saida de caixa elevada por pagamento de bonus anual.",
+      "valores": {
+        "operacional": 68400,
+        "investimento": -22500,
+        "financiamento": -12800,
+        "variacaoCaixa": 33100,
+        "saldoInicial": 84900,
+        "saldoFinal": 118000
+      }
+    },
+    {
+      "id": 7,
+      "empresaId": 1,
+      "titulo": "DRE - Fechamento Nov/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-30T09:40:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Campanha de Black Friday elevou volume e reduziu markup.",
+      "valores": {
+        "receitaBruta": 221000,
+        "impostos": 23900,
+        "custos": 116300,
+        "despesasOperacionais": 43500,
+        "resultadoFinanceiro": -3100,
+        "lucroLiquido": 34200
+      }
+    },
+    {
+      "id": 8,
+      "empresaId": 1,
+      "titulo": "DFC - Fechamento Nov/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-30T10:25:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Entrada de caixa maior por antecipacao de recebiveis.",
+      "valores": {
+        "operacional": 55600,
+        "investimento": -9800,
+        "financiamento": -11200,
+        "variacaoCaixa": 34600,
+        "saldoInicial": 50300,
+        "saldoFinal": 84900
+      }
+    },
+    {
+      "id": 9,
+      "empresaId": 1,
+      "titulo": "DRE - Fechamento Out/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-10",
+      "data": "2025-11-29T14:15:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Mes de ajuste de despesas fixas com foco em eficiencia.",
+      "valores": {
+        "receitaBruta": 205800,
+        "impostos": 22300,
+        "custos": 111100,
+        "despesasOperacionais": 41800,
+        "resultadoFinanceiro": -2900,
+        "lucroLiquido": 27700
+      }
+    },
+    {
+      "id": 10,
+      "empresaId": 1,
+      "titulo": "DFC - Fechamento Out/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-10",
+      "data": "2025-11-29T15:00:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Reducao de estoques melhorou capital de giro.",
+      "valores": {
+        "operacional": 48300,
+        "investimento": -10200,
+        "financiamento": -14600,
+        "variacaoCaixa": 23500,
+        "saldoInicial": 26800,
+        "saldoFinal": 50300
+      }
+    },
+    {
+      "id": 11,
+      "empresaId": 2,
+      "titulo": "DRE - Fechamento Jan/2026",
+      "tipo": "dre",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-26T09:10:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Custos de combustivel impactaram margem operacional.",
+      "valores": {
+        "receitaBruta": 418000,
+        "impostos": 45800,
+        "custos": 267500,
+        "despesasOperacionais": 71600,
+        "resultadoFinanceiro": -6400,
+        "lucroLiquido": 26700
+      }
+    },
+    {
+      "id": 12,
+      "empresaId": 2,
+      "titulo": "DFC - Fechamento Jan/2026",
+      "tipo": "dfc",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-26T09:55:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Maior CAPEX por renovacao de frota.",
+      "valores": {
+        "operacional": 70200,
+        "investimento": -35500,
+        "financiamento": 8500,
+        "variacaoCaixa": 43200,
+        "saldoInicial": 93500,
+        "saldoFinal": 136700
+      }
+    },
+    {
+      "id": 13,
+      "empresaId": 2,
+      "titulo": "DRE - Parcial Fev/2026 (S1)",
+      "tipo": "dre",
+      "periodoReferencia": "2026-02-S1",
+      "data": "2026-02-18T18:05:00Z",
+      "status": "publicado",
+      "versao": 1,
+      "insights": "Reajuste de contratos com repasse parcial de custos.",
+      "valores": {
+        "receitaBruta": 214300,
+        "impostos": 23500,
+        "custos": 137900,
+        "despesasOperacionais": 35800,
+        "resultadoFinanceiro": -2800,
+        "lucroLiquido": 14300
+      }
+    },
+    {
+      "id": 14,
+      "empresaId": 2,
+      "titulo": "DFC - Parcial Fev/2026 (S1)",
+      "tipo": "dfc",
+      "periodoReferencia": "2026-02-S1",
+      "data": "2026-02-18T18:35:00Z",
+      "status": "publicado",
+      "versao": 1,
+      "insights": "Fluxo operacional estavel, com aumento de prazo medio de pagamento.",
+      "valores": {
+        "operacional": 35100,
+        "investimento": -12400,
+        "financiamento": 3100,
+        "variacaoCaixa": 25800,
+        "saldoInicial": 136700,
+        "saldoFinal": 162500
+      }
+    },
+    {
+      "id": 15,
+      "empresaId": 2,
+      "titulo": "DRE - Fechamento Dez/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-30T13:40:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Operacao com menor ociosidade no corredor sul.",
+      "valores": {
+        "receitaBruta": 401800,
+        "impostos": 43800,
+        "custos": 256100,
+        "despesasOperacionais": 69400,
+        "resultadoFinanceiro": -5800,
+        "lucroLiquido": 26700
+      }
+    },
+    {
+      "id": 16,
+      "empresaId": 2,
+      "titulo": "DFC - Fechamento Dez/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-30T14:25:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Entrada de financiamentos para renovacao de frota leve.",
+      "valores": {
+        "operacional": 66300,
+        "investimento": -29800,
+        "financiamento": 12100,
+        "variacaoCaixa": 48600,
+        "saldoInicial": 44900,
+        "saldoFinal": 93500
+      }
+    },
+    {
+      "id": 17,
+      "empresaId": 2,
+      "titulo": "DRE - Fechamento Nov/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-29T09:30:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Ajuste de rotas reduziu quilometragem improdutiva.",
+      "valores": {
+        "receitaBruta": 389600,
+        "impostos": 42500,
+        "custos": 251400,
+        "despesasOperacionais": 67200,
+        "resultadoFinanceiro": -5900,
+        "lucroLiquido": 22600
+      }
+    },
+    {
+      "id": 18,
+      "empresaId": 2,
+      "titulo": "DFC - Fechamento Nov/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-29T10:10:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Pagamento de passivos de curto prazo no fim do periodo.",
+      "valores": {
+        "operacional": 61700,
+        "investimento": -17200,
+        "financiamento": -8400,
+        "variacaoCaixa": 36100,
+        "saldoInicial": 8800,
+        "saldoFinal": 44900
+      }
+    },
+    {
+      "id": 19,
+      "empresaId": 3,
+      "titulo": "DRE - Fechamento Jan/2026",
+      "tipo": "dre",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-25T08:50:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Receita recorrente cresceu com renovacoes anuais.",
+      "valores": {
+        "receitaBruta": 356000,
+        "impostos": 38100,
+        "custos": 129000,
+        "despesasOperacionais": 132500,
+        "resultadoFinanceiro": 4200,
+        "lucroLiquido": 60600
+      }
+    },
+    {
+      "id": 20,
+      "empresaId": 3,
+      "titulo": "DFC - Fechamento Jan/2026",
+      "tipo": "dfc",
+      "periodoReferencia": "2026-01",
+      "data": "2026-02-25T09:35:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Aumento de caixa por recebimento antecipado de contratos anuais.",
+      "valores": {
+        "operacional": 78200,
+        "investimento": -24100,
+        "financiamento": -12600,
+        "variacaoCaixa": 41500,
+        "saldoInicial": 209400,
+        "saldoFinal": 250900
+      }
+    },
+    {
+      "id": 21,
+      "empresaId": 3,
+      "titulo": "DRE - Fechamento Dez/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-29T17:25:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Crescimento do MRR sustentado por plano enterprise.",
+      "valores": {
+        "receitaBruta": 341500,
+        "impostos": 36600,
+        "custos": 123400,
+        "despesasOperacionais": 126800,
+        "resultadoFinanceiro": 3600,
+        "lucroLiquido": 58300
+      }
+    },
+    {
+      "id": 22,
+      "empresaId": 3,
+      "titulo": "DFC - Fechamento Dez/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-12",
+      "data": "2026-01-29T18:05:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Maior investimento em infraestrutura cloud para escalabilidade.",
+      "valores": {
+        "operacional": 74400,
+        "investimento": -28500,
+        "financiamento": -9300,
+        "variacaoCaixa": 36600,
+        "saldoInicial": 172800,
+        "saldoFinal": 209400
+      }
+    },
+    {
+      "id": 23,
+      "empresaId": 3,
+      "titulo": "DRE - Fechamento Nov/2025",
+      "tipo": "dre",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-28T15:15:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Churn controlado e aumento de ticket no mid-market.",
+      "valores": {
+        "receitaBruta": 329100,
+        "impostos": 35200,
+        "custos": 119700,
+        "despesasOperacionais": 121300,
+        "resultadoFinanceiro": 3100,
+        "lucroLiquido": 56000
+      }
+    },
+    {
+      "id": 24,
+      "empresaId": 3,
+      "titulo": "DFC - Fechamento Nov/2025",
+      "tipo": "dfc",
+      "periodoReferencia": "2025-11",
+      "data": "2025-12-28T15:55:00Z",
+      "status": "aprovado",
+      "versao": 1,
+      "insights": "Reducao pontual de caixa por pagamento anual de licencas.",
+      "valores": {
+        "operacional": 70600,
+        "investimento": -20200,
+        "financiamento": -11400,
+        "variacaoCaixa": 39000,
+        "saldoInicial": 133800,
+        "saldoFinal": 172800
+      }
+    }
+  ],
+  "graficos": {
+    "filtrosSugestao": [
+      {
+        "id": "30d",
+        "label": "Ultimos 30 dias"
+      },
+      {
+        "id": "60d",
+        "label": "Ultimos 60 dias"
+      },
+      {
+        "id": "90d",
+        "label": "Ultimos 90 dias"
+      }
+    ],
+    "vendasMensais": {
+      "meses": [
+        "Set",
+        "Out",
+        "Nov",
+        "Dez",
+        "Jan",
+        "Fev"
+      ],
+      "valores": [
+        81200,
+        91500,
+        102300,
+        128700,
+        119900,
+        123500
+      ]
+    }
+  }
 }

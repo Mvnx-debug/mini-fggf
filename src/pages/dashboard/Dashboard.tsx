@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { agruparPorDia, filtrarRelatorioPeriodo, type PeriodoFiltro } from '@/utils/dashboard';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 import { RelatorioCard } from '../../components/RelatorioCard';
@@ -12,6 +14,7 @@ export default function Dashboard() {
   const [relatorios, setRelatorios] = useState<Relatorio[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
+  const [periodo, setPeriodo] = useState<PeriodoFiltro>(30);
 
   useEffect(() => {
     let ativo = true;
@@ -52,6 +55,18 @@ export default function Dashboard() {
       ativo = false;
     };
   }, [user]);
+
+  const relatoriosFiltrados = useMemo(
+    () => filtrarRelatorioPeriodo(relatorios, periodo),
+    [relatorios, periodo]
+  );
+
+  const relatoriosPordia = useMemo(
+    () => agruparPorDia(relatoriosFiltrados),
+    [relatoriosFiltrados]
+  );
+
+
 
   if (carregando) {
     return (
@@ -94,23 +109,33 @@ export default function Dashboard() {
         </div>
       ) : (
         <>
+          <Tabs
+            value={String(periodo)}
+            onValueChange={(v) => setPeriodo(Number(v) as PeriodoFiltro)}
+          >
+            <TabsList>
+              <TabsTrigger value="30">30 dias</TabsTrigger>
+              <TabsTrigger value="60">60 dias</TabsTrigger>
+              <TabsTrigger value="90">90 dias</TabsTrigger>
+            </TabsList>
+          </Tabs>
           <div className={styles.stats}>
             <div className={styles.statCard}>
               <span className={styles.statLabel}>Total</span>
-              <span className={styles.statValue}>{relatorios.length}</span>
+              <span className={styles.statValue}>{relatoriosFiltrados.length}</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statLabel}>DRE</span>
-              <span className={styles.statValue}>{relatorios.filter((r) => r.tipo === 'dre').length}</span>
+              <span className={styles.statValue}>{relatoriosFiltrados.filter((r) => r.tipo === 'dre').length}</span>
             </div>
             <div className={styles.statCard}>
               <span className={styles.statLabel}>DFC</span>
-              <span className={styles.statValue}>{relatorios.filter((r) => r.tipo === 'dfc').length}</span>
+              <span className={styles.statValue}>{relatoriosFiltrados.filter((r) => r.tipo === 'dfc').length}</span>
             </div>
           </div>
 
           <div className={styles.grid}>
-            {relatorios.map((relatorio) => (
+            {relatoriosFiltrados.map((relatorio) => (
               <RelatorioCard key={relatorio.id} relatorio={relatorio} />
             ))}
           </div>
