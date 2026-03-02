@@ -17,6 +17,35 @@ function formatarData(data: string) {
   return new Date(data).toLocaleDateString('pt-BR');
 }
 
+function formatarCategoria(chave: string) {
+  return chave
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/^./, (texto) => texto.toUpperCase());
+}
+
+function descreverCategoria(tipo: Relatorio['tipo'], categoria: string) {
+  const descricoesDRE: Record<string, string> = {
+    receitaBruta: 'Total de vendas antes de descontos e impostos.',
+    impostos: 'Tributos incidentes sobre o faturamento.',
+    custos: 'Custos diretos da operacao e do produto/servico.',
+    despesasOperacionais: 'Despesas administrativas, comerciais e operacionais.',
+    resultadoFinanceiro: 'Impacto financeiro de juros e operacoes bancarias.',
+    lucroLiquido: 'Resultado final apos custos, despesas e impostos.',
+  };
+
+  const descricoesDFC: Record<string, string> = {
+    operacional: 'Caixa gerado (ou consumido) pela operacao.',
+    investimento: 'Entradas/saidas de caixa por investimentos.',
+    financiamento: 'Fluxos de emprestimos, dividendos e capital.',
+    variacaoCaixa: 'Diferenca liquida de caixa no periodo.',
+    saldoInicial: 'Caixa disponivel no inicio do periodo.',
+    saldoFinal: 'Caixa disponivel no fim do periodo.',
+  };
+
+  const mapa = tipo === 'dre' ? descricoesDRE : descricoesDFC;
+  return mapa[categoria] ?? 'Indicador financeiro do relatorio.';
+}
+
 
 
 
@@ -82,6 +111,16 @@ export default function ReportDetails() {
     }))
   }, [relatorio])
 
+  const legendaCategorias = useMemo(() => {
+    if (!relatorio) return [];
+
+    return Object.keys(relatorio.valores).map((categoria) => ({
+      categoria,
+      titulo: formatarCategoria(categoria),
+      descricao: descreverCategoria(relatorio.tipo, categoria),
+    }));
+  }, [relatorio]);
+
 
   if (carregando) {
     return (
@@ -136,9 +175,20 @@ export default function ReportDetails() {
       </section>
 
       <section className={styles.card}>
-        <h2 className={styles.sectionTitle}>Grafico dos valores</h2>
+        <h2 className={styles.sectionTitle}>Gráfico dos valores</h2>
+        <p className={styles.chartHint}>
+          Barras: valor absoluto da categoria. Linha: participacao percentual da categoria no total do relatorio.
+        </p>
         <div className={styles.chartArea}>
           <ChartBarDefault data={dadosGrafico} />
+        </div>
+        <div className={styles.legendGrid}>
+          {legendaCategorias.map((item) => (
+            <div key={item.categoria} className={styles.legendItem}>
+              <strong>{item.titulo}</strong>
+              <p>{item.descricao}</p>
+            </div>
+          ))}
         </div>
       </section>
     </div>

@@ -61,6 +61,38 @@
   height: 340px;
 }
 
+.chartHint {
+  margin: 0 0 12px;
+  color: hsl(var(--muted-foreground));
+  font-size: 14px;
+}
+
+.legendGrid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.legendItem {
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  padding: 10px;
+  background: hsl(var(--muted) / 0.4);
+}
+
+.legendItem strong {
+  color: hsl(var(--foreground));
+  font-size: 14px;
+}
+
+.legendItem p {
+  margin: 6px 0 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .erro {
   background: hsl(var(--destructive) / 0.15);
   color: hsl(var(--destructive));

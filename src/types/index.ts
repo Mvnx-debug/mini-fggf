@@ -4,6 +4,10 @@ export interface Relatorio {
     titulo: string;
     tipo: 'dre' | 'dfc';
     data: string;
+    periodoReferencia?: string;
+    status?: string;
+    versao?: number;
+    insights?: string;
     valores: Record<string, number>;
 }
 
