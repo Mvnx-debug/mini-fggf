@@ -10,7 +10,6 @@ import {
   type ComparativoPeriodo,
   type PeriodoFiltro,
 } from '@/utils/dashboard';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 import { RelatorioCard } from '../../components/RelatorioCard';
 import { Loading } from '../../components/Loading';
@@ -19,7 +18,7 @@ import type { Relatorio } from '../../types';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [relatorios, setRelatorios] = useState<Relatorio[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
@@ -158,12 +157,6 @@ export default function Dashboard() {
           <p className={styles.subtitle}>
             {user?.tipo === 'admin' ? 'Gerencie todos os relatorios' : 'Seus relatorios financeiros'}
           </p>
-        </div>
-        <div className={styles.headerActions}>
-          <ThemeToggle />
-          <button onClick={logout} className={styles.logoutButton}>
-            Sair
-          </button>
         </div>
       </header>
 

@@ -6,7 +6,6 @@ import { Loading } from '../../components/Loading';
 import api from '../../services/api';
 import type { Relatorio } from '../../types';
 import styles from './ReportDetails.module.css';
-import { ThemeToggle } from '@/components/ThemeToggle'
 
 type ChartDatum = {
   categoria: string;
@@ -159,12 +158,9 @@ export default function ReportDetails() {
           Voltar
         </button>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <ThemeToggle />
-          <button className={styles.primaryButton} onClick={() => window.print()}>
-            Exportar PDF
-          </button>
-        </div>
+        <button className={styles.primaryButton} onClick={() => window.print()}>
+          Exportar PDF
+        </button>
       </div>
 
       <section className={styles.card}>

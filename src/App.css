@@ -1,0 +1,24 @@
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background:
+    radial-gradient(circle at 10% 20%, hsl(var(--chart-2) / 0.12), transparent 35%),
+    radial-gradient(circle at 90% 15%, hsl(var(--chart-1) / 0.09), transparent 30%),
+    hsl(var(--background));
+}
+
+.app-main {
+  min-width: 0;
+  padding: 22px;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .app-main {
+    padding: 14px;
+  }
+}

@@ -23,7 +23,7 @@ Criar uma plataforma web para geracao e visualizacao de relatorios financeiros (
 - Axios
 - Recharts
 - Context API (AuthContext e ThemeContext)
-- Componentes UI com base em shadcn (chart/card)
+- Componentes UI com base em shadcn (chart/card/tabs)
 - JSON Server (db.json) como backend mock
 
 ### Backend (planejado)
@@ -63,6 +63,7 @@ Cada relatorio contem, no minimo:
 - data
 - empresaId
 - valores (chave/valor numerico para visualizacao)
+- campos opcionais ja suportados no tipo: periodoReferencia, status, versao, insights
 
 ---
 
@@ -70,78 +71,42 @@ Cada relatorio contem, no minimo:
 - Login funcionando
 - AuthContext implementado
 - Rotas privadas funcionando
-- Dashboard listando relatorios
-- Estatisticas (total, DRE, DFC)
-- Loading implementado
-- Pagina de detalhes `/relatorio/:id` protegida
-- Busca de relatorio por ID via API
-- Validacao de permissao por `empresaId` no detalhe
-- Grafico de barras renderizado com dados de `valores`
-- Botao de exportacao PDF (via `window.print()`)
+- Layout autenticado com sidebar fixa a esquerda (`AppSidebar`)
+- Rotas privadas atuais:
+- `/dashboard`
+- `/relatorios`
+- `/relatorio/:id`
+- Dashboard com filtros de periodo (30/60/90 dias)
+- Granularidade automatica:
+- `30 dias` = comparativo diario
+- `60/90 dias` = comparativo mensal
+- Comparativo separado por tipo:
+- Grafico DRE (lucro liquido)
+- Grafico DFC (variacao de caixa)
+- KPI renomeado para `Tendencia Financeira` (DRE e DFC)
+- Paginacao de relatorios do mais novo para o mais antigo
+- Pagina `/relatorios` dedicada com listagem e paginacao
+- Pagina de detalhe `/relatorio/:id` protegida e validada por `empresaId`
+- Graficos modernizados com legenda e tooltip consistente
+- Valores negativos destacados em vermelho nos graficos
+- Exportacao PDF via `window.print()`
 - Tema claro/escuro com `ThemeToggle`
-- Estrutura de componentes reorganizada e reaproveitavel
 
 ---
 
 ## Em desenvolvimento
-- Melhorar experiencia visual dos graficos por tipo de relatorio (DRE/DFC)
-- Evoluir exportacao de PDF para arquivo gerado (nao apenas print)
+- Refinar responsividade do sidebar em mobile (modo recolhido)
+- Evoluir exportacao de PDF para arquivo real
+- Adicionar busca/filtro por tipo na pagina `/relatorios`
 - Adicionar testes automatizados (unitarios/integracao)
-- Consolidar padroes de componentes reutilizaveis
 
 ---
 
-## Proximo objetivo
-Fortalecer a tela de detalhes e qualidade de entrega:
-- Refinar visualizacao de dados financeiros (cards + grafico)
-- Preparar suporte a insights textuais por relatorio
-- Definir estrategia de exportacao PDF real
-- Cobrir fluxos criticos com testes
-
----
-
-## Plano definido para amanha (Dashboard v2 com shadcn)
-
-### Objetivo da tela
-- Transformar o dashboard em visao executiva:
-- Topo com comparativo de periodo e tendencia
-- Base com lista de relatorios agrupada por dia
-
-### Decisoes de produto
-- Usar filtro de periodo com presets: `30d`, `60d`, `90d`
-- Usar granularidade de visualizacao:
-- `Diario` para periodos curtos
-- `Mensal` para visao mais agregada
-- Comparar periodo atual vs periodo anterior (delta percentual)
-- Manter filtro por empresa para usuario cliente (via `empresaId`)
-
-### Estrutura visual acordada
-- Bloco 1: Header com titulo + controles de filtro
-- Bloco 2: Cards KPI (Total, DRE, DFC, variacao vs periodo anterior)
-- Bloco 3: Grafico principal no topo do dashboard
-- Bloco 4: Lista/timeline de relatorios agrupados por dia
-
-### Componentes shadcn planejados
-- `Tabs` para preset de periodo
-- `Select` (ou Tabs) para granularidade
-- `Card` para KPIs e container do grafico
-- `Badge` para status/variacao
-- `Accordion` ou `Table` para lista por dia
-- `Skeleton` para loading states
-
-### Base tecnica ja iniciada
-- `src/utils/dashboard.ts` com:
-- filtro por periodo (30/60/90 dias)
-- agrupamento de relatorios por dia
-- `src/pages/dashboard/Dashboard.tsx` ja usando estado de periodo e dados derivados
-- `db.json` enriquecido com dados realistas para suportar visoes por periodo e comparativos
-
-### Ordem de implementacao (amanha)
-1. Consolidar KPIs usando `relatoriosFiltrados`
-2. Construir dataset do grafico (periodo/granularidade)
-3. Renderizar grafico principal no topo
-4. Renderizar lista agrupada por dia na parte inferior
-5. Refinar estados (vazio, loading, erro) e acabamento visual
+## Proximos objetivos
+1. Sidebar v2 com colapso e navegacao secundaria
+2. Filtros avancados na pagina de relatorios (tipo, periodo, busca por titulo)
+3. Melhorias de acessibilidade (contraste, labels, navegacao por teclado)
+4. Estrategia de testes para fluxos criticos
 
 ---
 
@@ -150,15 +115,18 @@ Fortalecer a tela de detalhes e qualidade de entrega:
 src/
   components/
     ui/
+    AppSidebar.tsx
   context/
   pages/
     Login/
     dashboard/
     report-details/
+    reports/
   services/
   types/
   utils/
   App.tsx
+  App.css
   main.tsx
 ```
 
@@ -175,7 +143,7 @@ src/
 ---
 
 ## Visao de produto
-Este projeto nao e apenas academico.  
+Este projeto nao e apenas academico.
 E um MVP comercial de sistema financeiro real.
 
 Deve seguir:

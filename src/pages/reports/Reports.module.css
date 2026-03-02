@@ -1,0 +1,7 @@
+.container { max-width: 1200px; margin: 0 auto; padding: 8px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 16px; }
+.pagination { display: flex; justify-content: flex-end; gap: 10px; }
+.pagination button { padding: 8px 14px; border: 1px solid hsl(var(--border)); border-radius: 6px; background: hsl(var(--secondary)); cursor: pointer; }
+.pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+.erro { color: hsl(var(--destructive)); }
